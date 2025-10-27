@@ -34,7 +34,7 @@ npm install
 
 ### 2. Install Tampermonkey
 
-- **Chrome**: https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobp53f
+- **Chrome**: https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo
 - **Firefox**: https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/
 
 ### 3. Setup Tampermonkey Script
