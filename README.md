@@ -2,6 +2,8 @@
 
 Aplikasi untuk scrape YouTube Live Chat secara real-time dan mengirim data melalui WebSocket.
 
+[![Watch the demo](./media/demo.png)](./media/demo.mp4)
+
 ## 📋 Fitur
 
 - ✅ Scrape live chat YouTube secara real-time

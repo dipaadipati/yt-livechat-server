@@ -8,7 +8,7 @@ const HTTP_PORT = 3000;
 
 // Simpan chat history
 let chatHistory = [];
-const MAX_HISTORY = 100;
+const MAX_HISTORY = 30;
 
 // Create HTTP server
 const httpServer = http.createServer((req, res) => {
