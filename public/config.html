@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konfigurasi Tampilan</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --text: #e5e7eb;
+            --muted: #94a3b8;
+            --primary: #22c55e;
+            --danger: #ef4444;
+            --border: #1f2937;
+            --input: #0b1220;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, sans-serif;
+            background: radial-gradient(1200px 600px at 10% 10%, #0b1220 0%, var(--bg) 70%);
+            color: var(--text);
+        }
+
+        header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(6px);
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 18px;
+            letter-spacing: .3px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 24px auto;
+            padding: 0 16px 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .card h2 {
+            margin: 0 0 12px;
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .row .label {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .row input[type="text"],
+        .row input[type="number"],
+        .row input[type="color"],
+        .row input[type="range"],
+        .row select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--input);
+            color: var(--text);
+            outline: none;
+        }
+
+        .row input[type="checkbox"] {
+            transform: scale(1.1);
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: -6px;
+        }
+
+        .footer {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--primary);
+            color: #052e1a;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        button.secondary {
+            background: transparent;
+            color: var(--text);
+        }
+
+        .status {
+            margin-left: auto;
+            font-size: 12px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f59e0b;
+            display: inline-block;
+        }
+
+        .dot.ok {
+            background: var(--primary);
+        }
+
+        .dot.err {
+            background: var(--danger);
+        }
+
+        .preview {
+            grid-column: 1 / -1;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 8px;
+            background: white;
+        }
+
+        .author {
+            display: inline-flex;
+            gap: 12px;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .previewStart {
+            background: var(--card);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .previewDisplay {
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .avatar {
+            border-radius: 50%;
+            background: #1f2937;
+            display: inline-block;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .message {
+            margin-top: 12px;
+        }
+
+        .sr {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media (max-width: 820px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Konfigurasi Tampilan Chat</h1>
+    </header>
+
+    <main>
+        <!-- Avatar -->
+        <section class="card" aria-labelledby="avatar-title">
+            <h2 id="avatar-title">Avatar</h2>
+            <div class="row">
+                <div class="label">Enable</div>
+                <div><input type="checkbox" id="avatarEnabled" checked></div>
+            </div>
+            <div class="row">
+                <div class="label">Size (px)</div>
+                <div><input type="number" id="avatarSize" min="12" max="256" value="36"></div>
+            </div>
+            <p class="hint">Mengatur apakah avatar ditampilkan dan ukuran diameternya.</p>
+        </section>
+
+        <!-- Author Name -->
+        <section class="card" aria-labelledby="author-title">
+            <h2 id="author-title">Author name</h2>
+            <div class="row">
+                <div class="label">Size (px)</div>
+                <div><input type="number" id="authorNameSize" min="10" max="48" value="30"></div>
+            </div>
+            <div class="row">
+                <div class="label">Color</div>
+                <div><input type="color" id="authorNameColor" value="#ffffff"></div>
+            </div>
+            <div class="row">
+                <div class="label">Member color</div>
+                <div><input type="color" id="authorMemberColor" value="#2ba640"></div>
+            </div>
+            <div class="row">
+                <div class="label">Moderator color</div>
+                <div><input type="color" id="authorModeratorColor" value="#5e84f1"></div>
+            </div>
+            <p class="hint">Warna nama dapat berubah sesuai peran.</p>
+        </section>
+
+        <!-- Author Badge -->
+        <section class="card" aria-labelledby="badge-title">
+            <h2 id="badge-title">Author badge</h2>
+            <div class="row">
+                <div class="label">Enable</div>
+                <div><input type="checkbox" id="badgeEnabled" checked></div>
+            </div>
+            <div class="row">
+                <div class="label">Size (px)</div>
+                <div><input type="number" id="badgeSize" min="10" max="40" value="30"></div>
+            </div>
+            <p class="hint">Badge digunakan untuk menandai peran atau status.</p>
+        </section>
+
+        <!-- Text -->
+        <section class="card" aria-labelledby="text-title">
+            <h2 id="text-title">Text</h2>
+            <div class="row">
+                <div class="label">Size (px)</div>
+                <div><input type="number" id="textSize" min="10" max="40" value="30"></div>
+            </div>
+            <div class="row">
+                <div class="label">Color</div>
+                <div><input type="color" id="textColor" value="#dddddd"></div>
+            </div>
+            <p class="hint">Ukuran dan warna isi pesan.</p>
+        </section>
+
+        <!-- Background -->
+        <section class="card" aria-labelledby="bg-title">
+            <h2 id="bg-title">Background</h2>
+            <div class="row">
+                <div class="label">Color</div>
+                <div><input type="color" id="bgColor" value="#000000"></div>
+            </div>
+            <div class="row">
+                <div class="label">Opacity</div>
+                <div><input type="range" id="bgOpacity" min="0" max="1" step="0.01" value="0.9"></div>
+            </div>
+            <p class="hint">Warna background pesan.</p>
+        </section>
+
+        <!-- Membership Joined -->
+        <section class="card" aria-labelledby="membership-title">
+            <h2 id="membership-title">Membership Joined Style</h2>
+            <div class="row">
+                <div class="label">Text</div>
+                <div><input type="text" id="membershipText" value="Joined the membership"></div>
+            </div>
+            <div class="row">
+                <div class="label">Background Color</div>
+                <div><input type="color" id="membershipBgColor" value="#2ba640"></div>
+            </div>
+            <div class="row">
+                <div class="label">Background Opacity</div>
+                <div><input type="range" id="membershipBgOpacity" min="0" max="1" step="0.01" value="0.9"></div>
+            </div>
+            <div class="row">
+                <div class="label">Text Color</div>
+                <div><input type="color" id="membershipTextColor" value="#40ca44"></div>
+            </div>
+            <p class="hint">Warna latar belakang dan teks untuk pesan bergabung membership.</p>
+        </section>
+
+        <!-- Preview -->
+        <section class="preview" aria-labelledby="preview-title">
+            <h2 id="preview-title" style="font-size:14px; color: black; margin:0 0 10px;">Preview</h2>
+            <div id="previewStart" class="previewStart">
+                <div id="previewAvatar" class="avatar"></div>
+                <div class="previewDisplay">
+                    <div class="author">
+                        <div id="previewName" style="font-weight:700;">Author Name</div>
+                        <div id="previewBadge" class="badge">
+                            <img src="https://www.svgrepo.com/show/13671/youtube.svg" alt=""
+                                style="vertical-align: middle; width: 30px; height: 30px;" />
+                        </div>
+                    </div>
+                    <div id="previewText" class="message">Contoh isi pesan yang mengikuti pengaturan.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <button id="saveBtn">Save</button>
+            <button id="resetBtn" class="secondary">Reset</button>
+            <div id="wsStatus" class="status" aria-live="polite">
+                <span class="dot" id="wsDot"></span>
+                <span id="wsText">WebSocket: connecting…</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- State & Elements
+        const el = (id) => document.getElementById(id);
+
+        const fields = {
+            avatarEnabled: el('avatarEnabled'),
+            avatarSize: el('avatarSize'),
+            authorNameSize: el('authorNameSize'),
+            authorNameColor: el('authorNameColor'),
+            authorMemberColor: el('authorMemberColor'),
+            authorModeratorColor: el('authorModeratorColor'),
+            badgeEnabled: el('badgeEnabled'),
+            badgeSize: el('badgeSize'),
+            textSize: el('textSize'),
+            textColor: el('textColor'),
+            bgColor: el('bgColor'),
+            bgOpacity: el('bgOpacity'),
+            mbText: el('membershipText'),
+            mbBgColor: el('membershipBgColor'),
+            mbBgOpacity: el('membershipBgOpacity'),
+            mbTextColor: el('membershipTextColor'),
+        };
+
+        const preview = {
+            avatar: el('previewAvatar'),
+            name: el('previewName'),
+            badge: el('previewBadge'),
+            text: el('previewText'),
+            bg: el('previewStart'),
+        };
+
+        function init() {
+            const res = fetch('/api/config')
+                .then((r) => r.json())
+                .then((data) => {
+                    if (data) {
+                        // apply to fields
+                        fields.avatarEnabled.checked = data.avatar.enabled;
+                        fields.avatarSize.value = data.avatar.size;
+                        fields.authorNameSize.value = data.authorName.size;
+                        fields.authorNameColor.value = data.authorName.color;
+                        fields.authorMemberColor.value = data.authorName.memberColor;
+                        fields.authorModeratorColor.value = data.authorName.moderatorColor;
+                        fields.badgeEnabled.checked = data.authorBadge.enabled;
+                        fields.badgeSize.value = data.authorBadge.size;
+                        fields.textSize.value = data.text.size;
+                        fields.textColor.value = data.text.color;
+                        fields.bgColor.value = data.background?.color || '#000000';
+                        fields.bgOpacity.value = data.background?.opacity || 0.9;
+                        fields.mbText.value = data.membershipJoined?.format || 'Joined the membership';
+                        fields.mbBgColor.value = data.membershipJoined?.bgColor || '#2ba64033';
+                        fields.mbBgOpacity.value = data.membershipJoined?.bgOpacity || 0.9;
+                        fields.mbTextColor.value = data.membershipJoined?.textColor || '#40ca44';
+                        applyPreview();
+                    }
+                })
+                .catch((err) => {
+                    console.info('File not found or invalid JSON, using defaults.');
+                    resetSettings();
+                });
+        }
+
+        init();
+
+        // --- WebSocket connection
+        let ws;
+        let wsReady = false;
+
+        function connectWS() {
+            try {
+                ws = new WebSocket('ws://localhost:8080');
+            } catch (e) {
+                setWSStatus('error', 'WebSocket: failed to create');
+                return;
+            }
+            setWSStatus('connecting', 'WebSocket: connecting…');
+
+            ws.addEventListener('open', () => {
+                wsReady = true;
+                setWSStatus('ok', 'WebSocket: connected');
+            });
+
+            ws.addEventListener('close', () => {
+                wsReady = false;
+                setWSStatus('error', 'WebSocket: disconnected');
+                // auto-reconnect after 2s
+                setTimeout(connectWS, 2000);
+            });
+
+            ws.addEventListener('error', () => {
+                wsReady = false;
+                setWSStatus('error', 'WebSocket: error');
+            });
+        }
+
+        function setWSStatus(status, text) {
+            const dot = el('wsDot');
+            const tx = el('wsText');
+            tx.textContent = text || '';
+            dot.classList.remove('ok', 'err');
+            if (status === 'ok') dot.classList.add('ok');
+            else if (status === 'error') dot.classList.add('err');
+        }
+
+        connectWS();
+
+        // --- Helpers
+        function clamp(val, min, max) {
+            return Math.max(min, Math.min(max, val));
+        }
+
+        function hexToRgba(hex, alpha) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        function applyPreview() {
+            const avatarEnabled = fields.avatarEnabled.checked;
+            const avatarSize = clamp(Number(fields.avatarSize.value || 32), 12, 256);
+            const nameSize = clamp(Number(fields.authorNameSize.value || 14), 10, 48);
+            const textSize = clamp(Number(fields.textSize.value || 14), 10, 32);
+            const badgeSize = clamp(Number(fields.badgeSize.value || 12), 10, 40);
+            const bgColor = fields.bgColor.value;
+            const bgOpacity = parseFloat(fields.bgOpacity.value);
+
+            // Avatar
+            preview.avatar.style.width = avatarEnabled ? avatarSize + 'px' : '0px';
+            preview.avatar.style.height = avatarEnabled ? avatarSize + 'px' : '0px';
+            preview.avatar.style.marginRight = avatarEnabled ? '2px' : '0px';
+            preview.avatar.style.opacity = avatarEnabled ? '1' : '0';
+            preview.avatar.style.transition = 'opacity .2s ease';
+
+            // Name
+            preview.name.style.fontSize = nameSize + 'px';
+            preview.name.style.color = fields.authorNameColor.value;
+
+            // Badge
+            preview.badge.style.display = fields.badgeEnabled.checked ? 'inline-block' : 'none';
+            preview.badge.style.fontSize = badgeSize + 'px';
+
+            // Text
+            preview.text.style.fontSize = textSize + 'px';
+            preview.text.style.color = fields.textColor.value;
+
+            // Background
+            preview.bg.style.background = hexToRgba(bgColor, bgOpacity);
+
+            // Role demo: toggle color based on role
+            preview.name.style.color = fields.authorMemberColor.value;
+        }
+
+        function getSettings() {
+            return {
+                avatar: {
+                    enabled: fields.avatarEnabled.checked,
+                    size: clamp(Number(fields.avatarSize.value || 32), 12, 256),
+                },
+                authorName: {
+                    size: clamp(Number(fields.authorNameSize.value || 14), 10, 48),
+                    color: fields.authorNameColor.value,
+                    memberColor: fields.authorMemberColor.value,
+                    moderatorColor: fields.authorModeratorColor.value,
+                },
+                authorBadge: {
+                    enabled: fields.badgeEnabled.checked,
+                    size: clamp(Number(fields.badgeSize.value || 12), 10, 40),
+                },
+                text: {
+                    size: clamp(Number(fields.textSize.value || 14), 10, 32),
+                    color: fields.textColor.value,
+                },
+                background: {
+                    color: fields.bgColor.value,
+                    opacity: parseFloat(fields.bgOpacity.value),
+                },
+                membershipJoined: {
+                    text: fields.mbText.value,
+                    bgColor: fields.mbBgColor.value,
+                    bgOpacity: parseFloat(fields.mbBgOpacity.value),
+                    textColor: fields.mbTextColor.value,
+                },
+                // timestamp for traceability
+                updatedAt: new Date().toISOString(),
+            };
+        }
+
+        function saveSettings() {
+            const payload = {
+                type: 'ui-config:update',
+                data: getSettings(),
+            };
+            const body = JSON.stringify(payload);
+            if (wsReady && ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(body);
+                setWSStatus('ok', 'WebSocket: sent ✓');
+                // restore status after short delay
+                setTimeout(() => setWSStatus('ok', 'WebSocket: connected'), 1200);
+            } else {
+                setWSStatus('error', 'WebSocket: not connected');
+            }
+        }
+
+        function resetSettings() {
+            fields.avatarEnabled.checked = true;
+            fields.avatarSize.value = 36;
+            fields.authorNameSize.value = 30;
+            fields.authorNameColor.value = '#ffffff';
+            fields.authorMemberColor.value = '#2ba640';
+            fields.authorModeratorColor.value = '#5e84f1';
+            fields.badgeEnabled.checked = true;
+            fields.badgeSize.value = 30;
+            fields.textSize.value = 30;
+            fields.textColor.value = '#dddddd';
+            fields.bgColor.value = '#000000';
+            fields.bgOpacity.value = 0.9;
+            fields.mbText.value = 'Joined the membership';
+            fields.mbBgColor.value = '#2ba64033';
+            fields.mbBgOpacity.value = 0.9;
+            fields.mbTextColor.value = '#40ca44';
+            applyPreview();
+        }
+
+        // --- Events
+        Object.values(fields).forEach((input) => {
+            input.addEventListener('input', applyPreview);
+            input.addEventListener('change', applyPreview);
+        });
+
+        el('saveBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            applyPreview();
+            saveSettings();
+        });
+
+        el('resetBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            resetSettings();
+        });
+
+        // Initial render
+        applyPreview();
+    </script>
+</body>
+
+</html>

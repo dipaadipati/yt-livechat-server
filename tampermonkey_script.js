@@ -123,7 +123,7 @@
                 const isMember = true;
                 const isModerator = msgElement.querySelector('#chat-badges')?.querySelector('yt-live-chat-author-badge-renderer[type="moderator"]') !== null;
                 const memberBadgeImage = isMember ? msgElement.querySelector('#chat-badges')?.querySelector('yt-live-chat-author-badge-renderer[type="member"] #image img')?.src || null : null;
-                const message = msgElement.querySelector('#content #message')?.textContent?.trim() || 'Joined the membership';
+                const message = msgElement.querySelector('#content #message')?.textContent?.trim() || null;
                 const timestamp = new Date().toISOString();
                 const chatData = {
                     isMembershipJoin: true,

@@ -32,6 +32,17 @@ const httpServer = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ emojis }));
         });
+    } else if (req.url === '/api/config') {
+        const configPath = path.join(__dirname, 'config.json');
+        fs.readFile(configPath, (err, data) => {
+            if (err) {
+                res.writeHead(500, { 'Content-Type': 'text/plain' });
+                res.end('Internal Server Error');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(data);
+        });
     } else if (req.url.startsWith('/emojis/')) {
         const emojiPath = path.join(__dirname, req.url);
         fs.readFile(emojiPath, (err, data) => {
@@ -82,6 +93,10 @@ wss.on('connection', (ws) => {
     ws.on('message', (data) => {
         try {
             const chat = JSON.parse(data);
+            if (chat.type && chat.type === 'ui-config:update') {
+                fs.writeFileSync(path.join(__dirname, 'config.json'), JSON.stringify(chat.data, null, 2));
+                console.log('UI config updated and saved to config.json');
+            }
 
             // Simpan ke history
             chatHistory.push(chat);

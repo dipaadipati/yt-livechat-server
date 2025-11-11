@@ -52,3 +52,5 @@ emojis/*
 
 # Optional: OBS settings
 obs-settings/
+
+config.json

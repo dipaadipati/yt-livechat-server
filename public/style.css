@@ -1,3 +1,19 @@
+:root {
+    --author-badge-enabled: inline-block;
+    --author-badge-size: 30px;
+    --author-name-size: 30px;
+    --author-name-color: #ffffff;
+    --author-name-moderator-color: #5e84f1;
+    --author-name-member-color: #2ba640;
+    --avatar-enabled: inline-block;
+    --avatar-size: 36px;
+    --text-size: 30px;
+    --text-color: #dddddd;
+    --background-color: #000000e6;
+    --membership-join-background: #2ba64033;
+    --membership-join-text-color: #40ca44;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -26,19 +42,29 @@ body {
     gap: 10px;
     margin-bottom: 8px;
     padding: 8px;
-    background: rgba(0, 0, 0, 0.9);
+    background: var(--background-color);
     border-radius: 6px;
     backdrop-filter: blur(10px);
 }
 
+.membership-join {
+    background: var(--membership-join-background);
+}
+
+.membership-join .chat-message {
+    font-style: italic;
+    color: var(--membership-join-text-color);
+}
+
 .chat-avatar {
-    width: 36px;
-    height: 36px;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
     border-radius: 50%;
     background: #404040;
     flex-shrink: 0;
     overflow: hidden;
     vertical-align: middle;
+    display: var(--avatar-enabled);
 }
 
 .chat-avatar img {
@@ -63,44 +89,45 @@ body {
 .chat-author {
     font-weight: bold;
     color: #fff;
-    font-size: 30px;
+    font-size: var(--author-name-size);
     vertical-align: middle;
 }
 
 .chat-author.member {
-    color: #2ba640;
+    color: var(--author-name-member-color)
 }
 
 .chat-author.moderator {
-    color: #5e84f1;
+    color: var(--author-name-moderator-color);
 }
 
 .moderator-badge {
-    width: 30px;
-    height: 30px;
+    width: var(--author-badge-size);
+    height: var(--author-badge-size);
     fill: currentcolor;
     display: inline-block;
     vertical-align: middle;
 }
 
 .member-badge {
-    width: 30px;
-    height: 30px;
+    width: var(--author-badge-size);
+    height: var(--author-badge-size);
     border-radius: 4px;
     vertical-align: middle;
+    display: var(--author-badge-enabled);
 }
 
 .chat-message {
-    color: #ddd;
+    color: var(--text-color);
     word-wrap: break-word;
     white-space: pre-wrap;
-    font-size: 30px;
+    font-size: var(--text-size);
     line-height: 1.4;
 }
 
 .chat-emoji {
-    width: 40px;
-    height: 40px;
+    width: calc(var(--text-size) + 10px);
+    height: calc(var(--text-size) + 10px);
     vertical-align: middle;
     margin: 0 2px;
 }

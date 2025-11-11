@@ -87,6 +87,7 @@ WebSocket server listening on ws://localhost:8080
 ├── tampermonkey_script.js # Script untuk scrape YouTube
 ├── public/
 │   ├── index.html         # UI untuk menampilkan chat
+│   ├── config.html        # UI untuk konfigurasi langsung
 │   ├── script.js          # Frontend logic
 │   └── style.css          # Styling
 ├── emojis/                # Folder untuk custom emoji (optional)
@@ -95,6 +96,12 @@ WebSocket server listening on ws://localhost:8080
 ```
 
 ## 🎯 Konfigurasi (optional)
+
+### Ubah style pesan
+
+1. Buka `http://localhost:3000/config.html` di browser lokal
+2. Ubah beberapa konfigurasi
+3. Klik *Save* untuk menyimpan dan akan langsung ditampilkan
 
 ### Ubah Port Server
 
@@ -262,6 +269,10 @@ Untuk production / long-term streaming:
 
 ## 📝 Changelog
 
+### v2.0
+- Tambah halaman live konfigurasi
+- Tambah custom membership join style 
+
 ### v1.1
 - Tambah support member & moderator badge
 - Tambah support custom emoji
@@ -278,6 +289,7 @@ Jika ada masalah:
 1. Cek console F12 untuk error message
 2. Restart server & browser
 3. Cek firewall & antivirus tidak memblokir
+4. Tambahkan issue pada repo ini
 
 ## 📄 License
 
